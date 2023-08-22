@@ -1,3 +1,7 @@
+---
+
+---
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,7 +27,9 @@
     <body>
         <div id="graph"></div>
         <script type="module">
-            const response = await fetch('../data/roadmap.json');
+            const response = await fetch(
+                'https://github.com/Eduard-o/playvorath.com/blob/401f879c2915ab3e987919c02b0dac6340d8172f/src/data/roadmap.json'
+            );
             const data = await response.json();
             const NODE_SIZE = 1;
             const Graph = ForceGraph3D()(document.getElementById('graph'))
