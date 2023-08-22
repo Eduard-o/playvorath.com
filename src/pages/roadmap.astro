@@ -27,17 +27,29 @@
     <body>
         <div id="graph"></div>
         <script>
-            const NODE_SIZE = 1;
-            const Graph = ForceGraph3D()(document.getElementById('graph'))
-                .jsonUrl('../data/roadmap.json')
-                .nodeLabel('id')
-                .nodeAutoColorBy('group');
-
-            const bloomPass = new THREE.UnrealBloomPass();
-            bloomPass.strength = 0.5;
-            bloomPass.radius = 0.5;
-            bloomPass.threshold = 0.1;
-            Graph.postProcessingComposer().addPass(bloomPass);
+            fetch('../data/roadmap.json')
+                .then((res) => res.json())
+                .then((data) => {
+                    const NODE_SIZE = 1;
+                    const Graph = ForceGraph3D()(document.getElementById('graph'))
+                        .graphData(data)
+                        .nodeId('id')
+                        .nodeLabel((node) => {
+                            let text = '<span class="title">' + node.id + '</span';
+                            if (node.type != underfined) {
+                                text += ' <span class="type">[' + node.type + ']</span>';
+                            }
+                            if (node.tooltip != underfined) {
+                                text += '<br>' + node.tooltip;
+                            }
+                            if (node.url != undefined) {
+                                text += '<br><span class="dim">[click to open: ' + node.url + ']</span>';
+                            }
+                            text = '<div class="tooltip">' + text + '</div>';
+                            return text;
+                        })
+                        .nodeAutoColorBy('group');
+                });
         </script>
     </body>
 </html>
