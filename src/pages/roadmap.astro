@@ -1,39 +1,43 @@
+---
+import roadmap from '../data/roadmap.json';
+---
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="author" content="Eduard-o" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="generator" content={Astro.generator} />
-    <script is:inline src="//cdn.jsdelivr.net/npm/three/build/three.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/three-spritetext/dist/three-spritetext.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/Pass.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/CopyShader.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script is:inline src="//cdn.jsdelivr.net/npm/3d-force-graph/dist/3d-force-graph.min.js"></script>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <style>
-      @import '../styles/roadmap3d.css';
-    </style>
-    <title>Roadmap</title>
-  </head>
-  <body>
-    <div id="graph"></div>
-    <script type="module">
-      const NODE_SIZE = 1;
-      const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
-        .jsonUrl('../data/roadmap.json')
-        .nodeLabel('id')
-        .nodeAutoColorBy('group');
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="author" content="Eduard-o" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="generator" content={Astro.generator} />
+        <script is:inline src="//cdn.jsdelivr.net/npm/three/build/three.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/three-spritetext/dist/three-spritetext.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/Pass.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/CopyShader.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/LuminosityHighPassShader.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/UnrealBloomPass.js"></script>
+        <script is:inline src="//cdn.jsdelivr.net/npm/3d-force-graph/dist/3d-force-graph.min.js"></script>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <style>
+            @import '../styles/roadmap3d.css';
+        </style>
+        <title>Roadmap</title>
+    </head>
+    <body>
+        <div id="graph"></div>
+        <script type="module">
+            const NODE_SIZE = 1;
+            const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
+                .jsonUrl({ roadmap })
+                .nodeLabel('id')
+                .nodeAutoColorBy('group');
 
-      const bloomPass = new THREE.UnrealBloomPass();
-      bloomPass.strength = 0.5;
-      bloomPass.radius = 0.5;
-      bloomPass.threshold = 0.1;
-      Graph.postProcessingComposer().addPass(bloomPass);
-    </script>
-  </body>
+            const bloomPass = new THREE.UnrealBloomPass();
+            bloomPass.strength = 0.5;
+            bloomPass.radius = 0.5;
+            bloomPass.threshold = 0.1;
+            Graph.postProcessingComposer().addPass(bloomPass);
+        </script>
+    </body>
 </html>
