@@ -1,17 +1,13 @@
 body {
-  margin: 0;
-}
-main {
-  margin: auto;
-  padding: 1rem;
-  width: 800px;
-  max-width: calc(100% - 2rem);
+  background-color: black;
   color: white;
-  font-size: 20px;
-  line-height: 1.6;
+  font-family: 'Michroma', sans-serif;
+  font-size: 1.2em;
+  text-transform: uppercase;
 }
 a {
   color: white;
+  text-decoration: none;
 }
 .title {
   color: blueviolet;
@@ -20,12 +16,15 @@ a {
 .type {
   color: aqua;
 }
+.dim {
+  color: grey;
+}
 .tooltip {
-  margin-bottom: 2rem;
-  border: 1px solid rgba(var(--accent-light), 25%);
-  background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-  padding: 1.5rem;
-  border-radius: 8px;
+  background-color: black;
+  color: white;
+  border: white solid 1px;
+  text-transform: none;
+  padding: 10px;
 }
 .link {
   font-size: 0.8em;

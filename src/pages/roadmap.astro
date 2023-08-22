@@ -1,27 +1,35 @@
----
-import Graph from '../layouts/Graph.astro';
----
-
-<Graph title="3D Roadmap">
-  <main>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Eduard-o" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script src="//unpkg.com/three"></script>
+    <script src="//unpkg.com/3d-force-graph"></script>
+    <title>Roadmap</title>
+  </head>
+  <body>
     <div id="graph"></div>
-
+    <script type="importmap">
+      { "imports": { "three": "https://unpkg.com/three/build/three.module.js" } }
+    </script>
     <script type="module">
-      const NODE_REL_SIZE = 1;
-      const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
+      import { UnrealBloomPass } from '//unpkg.com/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
+      const Graph = ForceGraph3D()(document.getElementById('graph'))
         .jsonUrl('../data/roadmap.json')
         .nodeLabel('id')
         .nodeAutoColorBy('group');
 
       const bloomPass = new UnrealBloomPass();
-      bloomPass.strength = 0.5;
-      bloomPass.radius = 0.5;
+      bloomPass.strength = 3;
+      bloomPass.radius = 1;
       bloomPass.threshold = 0.1;
       Graph.postProcessingComposer().addPass(bloomPass);
     </script>
-  </main>
-</Graph>
-
-<style>
-  @import '../styles/roadmap3d.css';
-</style>
+  </body>
+</html>
