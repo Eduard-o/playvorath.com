@@ -23,7 +23,7 @@
         <script type="module">
             var roadmapData = require('../data/roadmap.json');
             const NODE_SIZE = 1;
-            const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
+            const Graph = ForceGraph3D()(document.getElementById('graph'))
                 .jsonUrl('../data/roadmap.json')
                 .nodeLabel('id')
                 .nodeAutoColorBy('group');
