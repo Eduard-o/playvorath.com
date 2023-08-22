@@ -4,16 +4,20 @@ import Card from '../components/Card.astro';
 ---
 
 <Layout title="Vorath | Hardcore MMORPG">
-  <main>
-    <h1>Welcome to <span class="text-gradient">Vorath</span></h1>
-    <ul role="list" class="link-card-grid">
-      <Card href="/roadmap/" title="3D Roadmap" body="Take a peek at what is planned for Vorath." />
-      <Card href="" title="Wiki" body="Read and learn with our evolving wiki." />
-      <Card href="" title="Discord" body="Join our community and start up a conversation on our Discord." />
-    </ul>
-  </main>
+    <main>
+        <h1>Welcome to <span class="text-gradient">Vorath</span></h1>
+        <ul role="list" class="link-card-grid">
+            <Card
+                href="/playvorath.com/roadmap/"
+                title="3D Roadmap"
+                body="Take a peek at what is planned for Vorath."
+            />
+            <Card href="" title="Wiki" body="Read and learn with our evolving wiki." />
+            <Card href="" title="Discord" body="Join our community and start up a conversation on our Discord." />
+        </ul>
+    </main>
 </Layout>
 
 <style>
-  @import '../styles/base.css';
+    @import '../styles/base.css';
 </style>
