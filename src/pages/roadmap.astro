@@ -1,5 +1,5 @@
 ---
-import * as roadmapData from '../data/roadmap.json';
+
 ---
 
 <!DOCTYPE html>
@@ -26,8 +26,9 @@ import * as roadmapData from '../data/roadmap.json';
     </head>
     <body>
         <div id="graph"></div>
-        <script type="module">
-            const data = { roadmapData };
+        <script>
+            import data from '../data/roadmap.json';
+
             const NODE_SIZE = 1;
             const Graph = ForceGraph3D()(document.getElementById('graph'))
                 .data.nodeLabel('id')
