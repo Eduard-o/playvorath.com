@@ -1,7 +1,3 @@
----
-import roadmap from '../data/roadmap.json';
----
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,11 +23,10 @@ import roadmap from '../data/roadmap.json';
     <body>
         <div id="graph"></div>
         <script type="module">
+            import roadmapData from '../data/roadmap.json';
             const NODE_SIZE = 1;
-            const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
-                .jsonUrl(roadmap)
-                .nodeLabel('id')
-                .nodeAutoColorBy('group');
+            const Graph = ForceGraph3D({ controlType: 'orbit' });
+            document.getElementById('graph').jsonUrl(roadmapData).nodeLabel('id').nodeAutoColorBy('group');
 
             const bloomPass = new THREE.UnrealBloomPass();
             bloomPass.strength = 0.5;
