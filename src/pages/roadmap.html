@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
         <meta name="author" content="Eduard-o" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
-        <meta name="generator" content={Astro.generator} />
+        <meta name="generator" content="{Astro.generator}" />
         <script is:inline src="//cdn.jsdelivr.net/npm/three/build/three.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/three-spritetext/dist/three-spritetext.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/Pass.js"></script>
@@ -14,19 +14,19 @@
         <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/LuminosityHighPassShader.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/UnrealBloomPass.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/3d-force-graph/dist/3d-force-graph.min.js"></script>
+        <link rel="stylesheet" href="../styles/roadmap3d.css" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <style>
-            @import '../styles/roadmap3d.css';
-        </style>
         <title>Roadmap</title>
     </head>
     <body>
         <div id="graph"></div>
         <script type="module">
-            import roadmapData from '../data/roadmap.json';
+            var roadmapData = require('../data/roadmap.json');
             const NODE_SIZE = 1;
-            const Graph = ForceGraph3D({ controlType: 'orbit' });
-            document.getElementById('graph').jsonUrl(roadmapData).nodeLabel('id').nodeAutoColorBy('group');
+            const Graph = ForceGraph3D()(document.getElementById('3d-graph'))
+                .jsonUrl('../data/roadmap.json')
+                .nodeLabel('id')
+                .nodeAutoColorBy('group');
 
             const bloomPass = new THREE.UnrealBloomPass();
             bloomPass.strength = 0.5;
