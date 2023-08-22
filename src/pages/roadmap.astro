@@ -27,11 +27,10 @@
     <body>
         <div id="graph"></div>
         <script>
-            import data from '../data/roadmap.json';
-
             const NODE_SIZE = 1;
             const Graph = ForceGraph3D()(document.getElementById('graph'))
-                .data.nodeLabel('id')
+                .jsonUrl('../data/roadmap.json')
+                .nodeLabel('id')
                 .nodeAutoColorBy('group');
 
             const bloomPass = new THREE.UnrealBloomPass();
