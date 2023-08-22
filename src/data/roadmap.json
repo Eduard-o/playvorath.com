@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    { "id": "START", "group": "start", "val": 10, "color": "lightred" },
+
+    { "id": "Quests", "group": "quests", "val": 5, "color": "aquamarine", "type": "Category" },
+
+    { "id": "Skills", "group": "skills", "val": 5, "color": "lightgreen", "type": "Category" }
+  ],
+  "links": [
+    { "source": "START", "target": "Quests" },
+    { "source": "START", "target": "Skills" }
+  ]
+}
