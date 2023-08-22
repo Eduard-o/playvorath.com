@@ -10,77 +10,8 @@ import Graph from '../layouts/Graph.astro';
       const NODE_REL_SIZE = 1;
       const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
         .jsonUrl('../data/roadmap.json')
-        .nodeId('id')
-        .linkDirectionalParticles((link) => (link.wip ? 0 : 3))
-        .linkDirectionalParticleSpeed(0.002)
-        .linkDirectionalParticleWidth(3)
-        .linkOpacity(1)
-        .linkCurvature('curve')
-        .cooldownTicks(300)
-        .d3VelocityDecay(0.1)
-        .nodeRelSize(NODE_REL_SIZE)
-        .linkThreeObjectExtend(true)
-        .linkThreeObject((link) => {
-          if (link.text == undefined) {
-            return null;
-          }
-          const sprite = new SpriteText(link.text);
-          sprite.padding = 3;
-          sprite.backgroundColor = 'black';
-          sprite.padding = 1;
-          sprite.color = 'white';
-          sprite.textHeight = 6;
-          return sprite;
-        })
-        .linkPositionUpdate((spr, { start, end }) => {
-          if (spr == undefined) {
-            return;
-          }
-          const mp = Object.assign(
-            ...['x', 'y', 'z'].map((c) => ({
-              [c]: start[c] + (end[c] - start[c]) / 2,
-            }))
-          );
-          Object.assign(spr.position, mp);
-        })
-        .linkColor((link) => (link.wip ? 'magenta' : 'rgba(255,255,255,0.8)'))
-        .nodeLabel((node) => {
-          let text = '<span class="title">' + node.id + '</span>';
-          if (node.type != undefined) {
-            text += ' <span class="type">[' + node.type + ']</span>';
-          }
-          text += '<br>' + node.tooltip;
-          if (node.url != undefined) {
-            text += '<br><span class="dim">[click to open: ' + node.url + ']</span>';
-          }
-          text = '<div class="tooltip">' + text + '</div>';
-          return text;
-        })
-        .nodeThreeObject((node) => {
-          let text = node.id;
-          let fontMul = 1;
-          let borderColor = 'white';
-          if (node.type == 'Category') {
-            fontMul = 3;
-            text = text.toUpperCase();
-            borderColor = 'yellow';
-          }
-          if (node.id == 'Start') {
-            fontMul = 5;
-          }
-          const sprite = new SpriteText(text);
-          sprite.backgroundColor = 'black';
-          sprite.padding = 3;
-          sprite.color = node.color;
-          sprite.borderColor = borderColor;
-          sprite.borderWidth = 1;
-          sprite.borderRadius = 3;
-          sprite.textHeight = 6 * fontMul;
-          return sprite;
-        });
-
-      Graph.d3Force('link').distanace((link) => link.dist || 200);
-      Graph.d3Force('center', null);
+        .nodeLabel('id')
+        .nodeAutoColorBy('group');
 
       const bloomPass = new UnrealBloomPass();
       bloomPass.strength = 0.5;
