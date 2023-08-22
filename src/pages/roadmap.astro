@@ -29,7 +29,7 @@ import roadmap from '../data/roadmap.json';
         <script type="module">
             const NODE_SIZE = 1;
             const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
-                .jsonUrl({ roadmap })
+                .jsonUrl(roadmap)
                 .nodeLabel('id')
                 .nodeAutoColorBy('group');
 
