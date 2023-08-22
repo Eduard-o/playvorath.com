@@ -7,8 +7,8 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="generator" content={Astro.generator} />
-    <script src="//unpkg.com/three"></script>
-    <script src="//unpkg.com/3d-force-graph"></script>
+    <script is:inline src="//unpkg.com/three"></script>
+    <script is:inline src="//unpkg.com/3d-force-graph"></script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
       @import '../styles/roadmap3d.css';
@@ -17,10 +17,10 @@
   </head>
   <body>
     <div id="graph"></div>
-    <script type="importmap">
+    <script is:inline type="importmap">
       { "imports": { "three": "https://unpkg.com/three/build/three.module.js" } }
     </script>
-    <script type="module">
+    <script is:inline type="module">
       import { UnrealBloomPass } from '//unpkg.com/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
       const Graph = ForceGraph3D()(document.getElementById('graph'))
