@@ -14,14 +14,15 @@
         <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/LuminosityHighPassShader.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/UnrealBloomPass.js"></script>
         <script is:inline src="//cdn.jsdelivr.net/npm/3d-force-graph/dist/3d-force-graph.min.js"></script>
-        <link rel="stylesheet" href="../styles/roadmap3d.css" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <style>
+            @import '../styles/roadmap3d.css';
+        </style>
         <title>Roadmap</title>
     </head>
     <body>
         <div id="graph"></div>
         <script type="module">
-            var roadmapData = require('../data/roadmap.json');
             const NODE_SIZE = 1;
             const Graph = ForceGraph3D()(document.getElementById('graph'))
                 .jsonUrl('../data/roadmap.json')
