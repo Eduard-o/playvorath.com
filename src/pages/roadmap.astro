@@ -7,8 +7,13 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline src="//unpkg.com/three"></script>
-    <script is:inline src="//unpkg.com/3d-force-graph"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three/build/three.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three-spritetext/dist/three-spritetext.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/Pass.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/CopyShader.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/three/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script is:inline src="//cdn.jsdelivr.net/npm/3d-force-graph/dist/3d-force-graph.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <style>
       @import '../styles/roadmap3d.css';
@@ -17,13 +22,9 @@
   </head>
   <body>
     <div id="graph"></div>
-    <script is:inline type="importmap">
-      { "imports": { "three": "https://unpkg.com/three/build/three.module.js" } }
-    </script>
-    <script is:inline type="module">
-      import { UnrealBloomPass } from '//unpkg.com/three/examples/jsm/postprocessing/UnrealBloomPass.js';
-
-      const Graph = ForceGraph3D()(document.getElementById('graph'))
+    <script type="module">
+      const NODE_SIZE = 1;
+      const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
         .jsonUrl('../data/roadmap.json')
         .nodeLabel('id')
         .nodeAutoColorBy('group');
