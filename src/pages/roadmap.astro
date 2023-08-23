@@ -1,5 +1,5 @@
 ---
-import '../styles/roadmap3d.css';
+import '../styles/roadmap.css';
 ---
 
 <html lang="en">
@@ -27,24 +27,119 @@ import '../styles/roadmap3d.css';
                 .then((res) => res.json())
                 .then((data) => {
                     const NODE_SIZE = 1;
-                    const Graph = ForceGraph3D()(document.getElementById('graph'))
+                    const DIMENSIONS = 2;
+                    const LINK_DIST = 85;
+                    const HEAD_NODE = data.nodes.find((node) => node.id == 'Vorath');
+
+                    const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('graph'))
                         .graphData(data)
+                        .backgroundColor('black')
+                        .nodeAutoColorBy('group')
                         .nodeId('id')
+                        .nodeRelSize(NODE_SIZE)
                         .nodeLabel((node) => {
-                            let text = '<span class="title">' + node.id + '</span';
-                            if (node.type != undefined) {
-                                text += ' <span class="type">[' + node.type + ']</span>';
-                            }
-                            if (node.tooltip != undefined) {
-                                text += '<br>' + node.tooltip;
-                            }
-                            if (node.url != undefined) {
-                                text += '<br><span class="dim">[click to open: ' + node.url + ']</span>';
-                            }
-                            text = '<div class="tooltip">' + text + '</div>';
-                            return text;
+                            return createNodeLabel(node);
                         })
-                        .nodeAutoColorBy('group');
+                        .nodeThreeObject((node) => {
+                            return createNodeSprite(node);
+                        })
+                        .linkOpacity(1)
+                        .linkDirectionalParticles((link) => {
+                            return nodeStatusCheck(link) ? '3' : '0';
+                        })
+                        .linkDirectionalParticleSpeed(0.002)
+                        .linkDirectionalParticleWidth(3)
+                        .linkDirectionalParticleColor(() => 'orange')
+                        .cooldownTicks(300)
+                        .d3VelocityDecay(0.1)
+                        .onNodeClick((node) => {
+                            nodeClickHandler(node);
+                        });
+
+                    Graph.d3Force('link').distance((link) => LINK_DIST);
+                    Graph.numDimensions(DIMENSIONS);
+                    Graph.onEngineStop(() => Graph.zoomToFit(200));
+
+                    const bloomPass = new THREE.UnrealBloomPass();
+                    bloomPass.strength = 0.5;
+                    bloomPass.radius = 0.5;
+                    bloomPass.threshold = 0.01;
+                    Graph.postProcessingComposer().addPass(bloomPass);
+
+                    function nodeClickHandler(node) {
+                        if (node.url != undefined) {
+                            window.open(node.url, '_blank');
+                            return;
+                        }
+                    }
+
+                    function createNodeLabel(node) {
+                        let text = `<span class="title">${node.id}</span>`;
+                        if (node.type != undefined) {
+                            text += ` <span class="type">[${
+                                node.type.charAt(0).toUpperCase() + node.type.slice(1)
+                            }]</span>`;
+                        }
+                        if (node.status != undefined) {
+                            text += ` <span class="status ${node.status}">[${
+                                node.status.charAt(0).toUpperCase() + node.status.slice(1)
+                            }]</span>`;
+                        }
+                        if (node.tooltip != undefined) {
+                            text += `<br>${node.tooltip}`;
+                        }
+                        if (node.url != undefined) {
+                            text += `<br><span class="dim">(Open: ${node.url})</span>`;
+                        }
+                        text = `<div class="tooltip">${text}</div>`;
+
+                        return text;
+                    }
+
+                    function createNodeSprite(node) {
+                        let text = node.id;
+                        const sprite = new SpriteText(text);
+                        let fontSize = node.val / 5;
+                        let borderColor =
+                            node.status == 'completed'
+                                ? 'limegreen'
+                                : node.status == 'in-progress'
+                                ? 'orange'
+                                : 'white';
+
+                        sprite.padding = 2;
+                        sprite.backgroundColor = node.status == 'planned' ? 'rgba(105, 105, 105, .5)' : 'black';
+                        sprite.color = node.color;
+                        sprite.borderColor = borderColor;
+                        sprite.borderWidth = 1;
+                        sprite.borderRadius = 3;
+                        sprite.textHeight = fontSize * node.val;
+
+                        return sprite;
+                    }
+
+                    function nodeStatusCheck(link) {
+                        let targetNode = data.nodes.find((node) => node.id == link.target);
+                        if (targetNode.status == 'in-progress' || targetNode.child == 'in-progress') {
+                            walk(link);
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    function walk(link) {
+                        if (link.source == HEAD_NODE.id) {
+                            HEAD_NODE['child'] = 'in-progress';
+                            return;
+                        }
+
+                        let node = data.nodes.find((node) => node.id == link.source);
+
+                        if (node['child'] == 'in-progress') return;
+
+                        node['child'] = 'in-progress';
+                        walk(data.links.find((link) => node.id == link.target));
+                    }
                 });
         </script>
     </body>

@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: 'Michroma', sans-serif;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+.title {
+    color: blueviolet;
+    font-weight: bold;
+}
+.type {
+    color: goldenrod;
+}
+.status {
+    color: gray;
+}
+.status.planned {
+    color: gray;
+}
+.status.in-progress {
+    color: yellow;
+}
+.status.completed {
+    color: greenyellow;
+}
+.dim {
+    color: gray;
+    font-size: small;
+}
+.tooltip {
+    background-color: black;
+    color: white;
+    border: white solid 1px;
+    text-transform: none;
+    padding: 10px;
+}
+.link {
+    font-size: 0.8em;
+    font-weight: bold;
+    background: rgba(var(--accent-light), 12%);
+    color: rgb(var(--accent-light));
+    border-radius: 4px;
+    padding: 0.3em 0.4em;
+}

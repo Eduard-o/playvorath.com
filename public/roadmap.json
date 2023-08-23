@@ -1,13 +1,65 @@
 {
     "nodes": [
-        { "id": "START", "group": "start", "val": 10 },
+        { "id": "Vorath", "group": "start", "val": 10 },
 
-        { "id": "Quests", "group": "quests", "val": 5, "type": "Category" },
+        { "id": "Story", "group": "story", "val": 9, "type": "category" },
+        { "id": "Codex", "group": "story", "val": 8, "status": "planned" },
 
-        { "id": "Skills", "group": "skills", "val": 5, "type": "Category" }
+        { "id": "Player", "group": "player", "val": 9, "type": "category" },
+        { "id": "Customization", "group": "player", "val": 8, "type": "subcategory", "status": "planned" },
+
+        { "id": "Skills", "group": "player", "val": 8, "type": "subcategory" },
+        { "id": "Mining", "group": "player", "val": 7, "status": "planned" },
+
+        { "id": "Quests", "group": "player", "val": 8, "type": "subcategory", "status": "planned" },
+
+        { "id": "World", "group": "world", "val": 9, "type": "category" },
+        { "id": "Terrain", "group": "world", "val": 8, "type": "subcategory", "status": "planned" },
+        { "id": "Dungeons", "group": "world", "val": 8, "type": "subcategory", "status": "planned" },
+        { "id": "Events", "group": "world", "val": 8, "type": "subcategory" },
+        { "id": "Weather", "group": "world", "val": 7, "status": "planned" },
+        { "id": "World Raids", "group": "world", "val": 7, "status": "planned" },
+
+        { "id": "Multiplayer", "group": "multiplayer", "val": 9, "type": "category" },
+        { "id": "Economy", "group": "multiplayer", "val": 8, "type": "subcategory" },
+        { "id": "Currency", "group": "multiplayer", "val": 7, "status": "planned" },
+        { "id": "Guilds", "group": "multiplayer", "val": 8, "type": "subcategory", "status": "planned" },
+        { "id": "Parties", "group": "multiplayer", "val": 8, "type": "subcategory", "status": "planned" },
+
+        { "id": "AI", "group": "ai", "val": 9, "type": "category" },
+        { "id": "Friendly", "group": "ai", "val": 8, "type": "subcategory", "status": "planned" },
+        { "id": "Neutral", "group": "ai", "val": 8, "type": "subcategory", "status": "planned" },
+        { "id": "Hostile", "group": "ai", "val": 8, "type": "subcategory", "status": "planned" }
     ],
     "links": [
-        { "source": "START", "target": "Quests" },
-        { "source": "START", "target": "Skills" }
+        { "source": "Vorath", "target": "Player" },
+        { "source": "Vorath", "target": "Story" },
+        { "source": "Vorath", "target": "World" },
+        { "source": "Vorath", "target": "Multiplayer" },
+        { "source": "Vorath", "target": "AI" },
+
+        { "source": "Story", "target": "Codex" },
+
+        { "source": "Player", "target": "Quests" },
+
+        { "source": "Player", "target": "Skills" },
+        { "source": "Skills", "target": "Mining" },
+
+        { "source": "Player", "target": "Customization" },
+
+        { "source": "World", "target": "Terrain" },
+        { "source": "World", "target": "Dungeons" },
+        { "source": "World", "target": "Events" },
+        { "source": "Events", "target": "Weather" },
+        { "source": "Events", "target": "World Raids" },
+
+        { "source": "Multiplayer", "target": "Economy" },
+        { "source": "Economy", "target": "Currency" },
+        { "source": "Multiplayer", "target": "Guilds" },
+        { "source": "Multiplayer", "target": "Parties" },
+
+        { "source": "AI", "target": "Friendly" },
+        { "source": "AI", "target": "Neutral" },
+        { "source": "AI", "target": "Hostile" }
     ]
 }
